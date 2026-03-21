@@ -1,0 +1,180 @@
+i want to build a watch party system that allows multipl e users to watch youtube videos together in real time. Users should be synchronized -when one personpauses,seeks,or changes the video,everyone in the party sees the same action.
+
+I want you to read all this points below and help me making this project from basics because i dont know react and i only know basics of js so help me from basic.
+
+The application should allow multiple users to join a room and watch YouTube videos together in sync.
+
+---
+
+1. BASIC SETUP
+
+Frontend:
+
+* Create React app
+* Install socket.io-client
+* Install react-youtube
+* Use functional components with hooks
+
+Backend:
+
+* Create Node.js server using Express
+* Install socket.io
+* Enable CORS
+
+---
+
+2. ROOM SYSTEM
+
+* Users should enter:
+
+  * Username
+  * Room ID
+* On clicking "Join Room":
+
+  * Emit "join_room" event
+  * Add user to room in backend
+* Maintain rooms in memory:
+  rooms = {
+  roomId: [{ id, username, role }]
+  }
+
+---
+
+3. ROLE MANAGEMENT
+
+* First user becomes "host"
+* Others become "participants"
+* Store role in backend
+* Send participants list to all users
+
+---
+
+4. PARTICIPANTS LIST
+
+* Display all users in the room
+* Show username and role
+* Update list in real-time when users join or leave
+
+---
+
+5. YOUTUBE PLAYER INTEGRATION
+
+* Use react-youtube package
+* Store videoId in state
+* Load video dynamically
+* Handle player using onReady event
+
+---
+
+6. PLAY / PAUSE SYNC
+
+Frontend:
+
+* Host emits "play" and "pause"
+  Backend:
+* Validate host role
+* Broadcast event to room
+  Frontend:
+* Listen to "play" → player.playVideo()
+* Listen to "pause" → player.pauseVideo()
+
+---
+
+7. SEEK SYNC (IMPORTANT)
+
+* Use interval-based sync (every 2 seconds)
+* Host sends current time using "seek"
+* Backend broadcasts time
+* Participants update using player.seekTo()
+
+---
+
+8. CHANGE VIDEO SYNC
+
+* Host inputs YouTube URL
+* Extract videoId from URL
+* Emit "change_video"
+* Backend broadcasts to all users
+* Update video for everyone
+
+---
+
+9. REMOVE PARTICIPANT
+
+* Host can remove users
+* Backend removes user from room
+* Force socket leave
+* Emit "kicked" event to removed user
+* Update participants list
+
+---
+
+10. UI FEATURES
+
+* Join screen with username and room input
+* After join:
+
+  * Sidebar with participants
+  * Main video player
+  * Control buttons
+* Use Tailwind CSS for styling
+* Dark theme UI
+
+---
+
+11. ACCESS CONTROL
+
+* Only host can:
+
+  * Play / Pause
+  * Seek
+  * Change video
+  * Remove users
+* Participants:
+
+  * Cannot control video
+  * Controls disabled
+  * Overlay blocks interaction
+
+---
+
+12. CONNECTION HANDLING
+
+* Handle socket reconnect
+* Rejoin room automatically
+* Maintain sync after reconnect
+
+---
+
+13. OPTIONAL IMPROVEMENTS
+
+* Sync state on join (video time + play state)
+* Add chat system
+* Add database (MongoDB)
+* Add authentication
+
+---
+
+14. DEPLOYMENT
+
+* Push code to GitHub
+* Deploy backend on Render
+* Deploy frontend on Vercel
+* Update backend URL in frontend
+
+---
+
+PROJECT GOAL:
+
+Build a real-time collaborative video watching platform where one host controls playback and multiple participants watch in sync using WebSockets.
+
+---
+
+KEY CONCEPTS USED:
+
+* React Hooks (useState, useEffect)
+* WebSockets (Socket.IO)
+* Event-driven architecture
+* Role-based access control
+* Real-time synchronization
+* Component-based UI design
