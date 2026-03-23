@@ -38,14 +38,6 @@ const handlePause = () => {
   socket.emit("pause", { roomId });
 };
 
-const handleSeek = () => {
-  if (player && myRole === "host") {
-    const currentTime = player.getCurrentTime();
-    console.log("Sending seek:", currentTime);
-    socket.emit("seek", { roomId, time: currentTime });
-  }
-};
-
 const extractVideoId = (url) => {
   if (url.includes("youtu.be/")) {
     return url.split("youtu.be/")[1].split("?")[0];
